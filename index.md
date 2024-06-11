@@ -47,10 +47,14 @@ For your first milestone, describe what your project is and how you plan to buil
 -->
 
 # Starter Milestone
-
 For my starter project, I built the calculator ([link](https://www.amazon.com/Kit-Calculator-Resistance-Electronic-HUAGZIMO/dp/B0D13C9SYT/ref=sr_1_3?crid=3HGJTLNZ9O2GX&dib=eyJ2IjoiMSJ9._SWtzcdxglPoBR9j02Ru8HdkQYctYGhXoQSzf1MVwW8-wdJNSkQkLmCAtn4dRp6g-6R7J9461vhIP2EF_nk7Tig6XDG9bCrlMTSlmck5MBQwLRhhnSiQUGo0QJa1GwgSj6a6-1yBKFqneN2-Z0AqO-StnMGL2G8655x5qfsjKhjBt48dYiTRy3_0E2_Jk5agtyEMTLExRFtYVrPI5ML2CKLPh8c4dT4clp-o5in2kS0.ajrpXguZyLba8zZbq_b1WT_1ccEQlOe_PpesP9bkSUM&dib_tag=se&keywords=calculator+solder&qid=1717994208&sprefix=calculator+solde%2Caps%2C148&sr=8-3)), because I thought it would be a fun way to get better at soldering and a fun project to find later on and use to my liking. It can perform all standard operations, including addition, subtraction, multiplication, and division, even with decimals.
+
+## Structure
 The main components of the calculator are the General Purpose Input Output (GPIO) buttons, which can either be in a HIGH or LOW state. These signals are sent electrically to this chip, acting as the "brain" of the calculator. It contains Floating Point circuits (FPC), which process the floating point numbers and send an output to these two 3 digit displays. These displays can display digits from 0-9 in addition to decimal points, and update on signal from the chip. We also have a microUSB adapter, allowing us to connect our calculator to a computer and edit code as needed. Finally, we have a battery socket and a CR2032 battery, a standard 3 volt battery, which powers the entire calculator and can be removed and replaced as needed.
+
+## Conclusion
 The most difficult challenge I faced during this build was related to the chip. There was originally an Integrated Circuit, or IC socket that the chip was placed in prior to soldering that made it easier to remove the chip, but a pin on the socket had broken, so after consideration, I decided that I would never need to remove the chip and soldered the chip itself onto the board to solve the problem. 
+
 Now, I will move on to my main project, the ball-tracking robot, and begin assembling my Raspberry Pi circuit and components.
 
 # Schematics 
