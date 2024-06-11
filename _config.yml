@@ -3,5 +3,5 @@ plugins:
 - jekyll-remote-theme
 markdown: kramdown
 title: "Ball Tracking Robot"
-description: "Blue Stamp 2024"
+description: "Yash Sethuraman"
 show_downloads: false
