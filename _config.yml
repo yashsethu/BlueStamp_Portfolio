@@ -4,4 +4,3 @@ plugins:
 markdown: kramdown
 title: "Ball Tracking Robot"
 description: "Yash Sethuraman"
-show_downloads: false
