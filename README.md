@@ -1,1 +1,1 @@
-This repository is a template for documenting BlueStamp Engineering projects. Users should replace this text with a description of what their project is and what their repository holds. 
+Hi! My name is Yash Sethuraman, and this is my 2024 Blue Stamp Project Portfolio, highlighting my materials, process, milestones, and outcomes building the Ball Tracking Robot.
