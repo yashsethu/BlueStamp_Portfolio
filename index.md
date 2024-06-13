@@ -52,6 +52,9 @@ For my starter project, I built the calculator ([link](https://www.amazon.com/Ki
 ## Structure
 The main components of the calculator are the General Purpose Input Output (GPIO) buttons, which can either be in a HIGH or LOW state. These signals are sent electrically to this chip, acting as the "brain" of the calculator. It contains Floating Point units (FPU), which are tiny circuits that process the floating point numbers and send an output to these two seven-segment displays. These displays can display digits from 0-9 in addition to decimal points, and update on signal from the chip. They are a more simpler way to display floating-point numbers than more complex matrix displays, due to only having seven main Light emitting diode (LED) segments. We also have a microUSB adapter, allowing us to connect our calculator to a computer and edit code as needed. Finally, we have a battery socket and a CR2032 battery, a standard 3 volt battery, which powers the entire calculator and can be removed and replaced as needed.
 
+![Headstone Image](GPIO_Button.jpg)
+*How a GPIO Button works*
+
 ## Conclusion
 The most difficult challenge I faced during this build was related to the chip. There was originally an Integrated Circuit, or IC socket that the chip was placed in prior to soldering that made it easier to remove the chip, but a pin on the socket had broken, so after consideration, I decided that I would never need to remove the chip and soldered the chip itself onto the board to solve the problem. 
 
