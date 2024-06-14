@@ -4,10 +4,9 @@ The Ball-tracking Robot uses the Raspberry Pi system along with the Open Compute
 |:--:|:--:|:--:|:--:|
 | Yash S. | Leland High School | Mechanical Engineering / Robotics | Incoming Sophmore
 
-<!---
-**Replace the BlueStamp logo below with an image of yourself and your completed project. Follow the guide [here](https://tomcam.github.io/least-github-pages/adding-images-github-pages-site.html) if you need help.**
+![Headshot](Yash_S.heic)
 
-![Circuit Image](logo.svg)
+<!---
 
 # Final Milestone
 
@@ -52,7 +51,7 @@ For my starter project, I built the calculator ([link](https://www.amazon.com/Ki
 ## Structure
 The main components of the calculator are the [General Purpose Input Output (GPIO)](https://www.renesas.com/us/en/support/engineer-school/mcu-programming-peripherals-01-gpio) buttons, which can either be in a HIGH or LOW state. These signals are sent electrically to this chip, acting as the "brain" of the calculator. It contains [Floating Point units (FPU)](https://www.techopedia.com/definition/2865/floating-point-unit-fpu), which are tiny circuits that process the floating point numbers and send an output to these two [seven-segment displays](https://www.electronics-tutorials.ws/blog/7-segment-display-tutorial.html). These displays can display digits from 0-9 in addition to decimal points, and update on signal from the chip. They are a more simpler way to display floating-point numbers than more complex matrix displays, due to only having seven main [Light emitting diode (LED)](https://www.rohm.com/electronics-basics/leds/what-are-leds#:~:text=LEDs%20(Light%20Emitting%20Diodes)%20are,semiconductor%20(larger%20electron%20concentration).) segments. We also have a microUSB adapter, allowing us to connect our calculator to a computer and edit code as needed. Finally, we have a battery socket and a [CR2032 battery](https://www.cr2032.co/cr2032-functions-article.html#:~:text=The%20CR2032%20battery%20uses%20a,like%20watches%20and%20remote%20controls.), a standard 3 volt battery, which powers the entire calculator and can be removed and replaced as needed.
 
-![Headstone Image](GPIO_Button.jpg)
+![Image of 2 circuits](GPIO_Button.jpg)
 
 *How a GPIO Button works*
 
