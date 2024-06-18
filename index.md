@@ -36,7 +36,71 @@ For your second milestone, explain what you've worked on since your previous mil
 -->
 
 # First Milestone
-For my first milestone, I completed the construction of the robot kit and all the wiring and tested that the robot and camera work with camera and motor testing code. My main challenge with this process was that almost every part of the kit was broken, including the battery pack which didn't supply any voltage, the motor driver which gave no output voltage, and the switch that melted and wouldn't turn on. I had to replace the battery pack and motor driver and use a Dremel Saw to make a larger hole for a new switch. In addition, I was originally connecting power to +5V, but this was incorrect, I had to connect it to VCC, and once I fixed this error, the motors worked normally and I could control the robot as I wanted. 
+For my first milestone, I completed the construction of the robot kit and all the wiring and tested that the robot and camera work with camera and motor testing code. 
+
+### Summary
+On the top of the robot is a Raspberry Pi 4B, powered by a large lithium-ion power bank and connected to the ArduCam 5MP camera in an acrylic case. On the bottom, we have a 2 H-Bridge (A circuit that can reverse polarity) motor driver wired up with two 6V DC motors. This driver is powered by four AA batteries, providing 6V of power to the driver, in series with this switch that can open or close the circuit to control whether the motor driver is on. Finally, the bridge between the two sides, 4 jumper wires, two for each motor, come in from the Raspberry Pi and are inputted into the motor driver to control the motors.
+
+### Testing
+To test the functionality of my robot, I used 2 test programs, one for the motors and one for the camera.
+
+Here is a basic motor testing program:
+```python
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BOARD)
+
+MOTOR1B=15 # LEFT motor
+MOTOR1E=16
+  
+MOTOR2B=11 # RIGHT motor
+MOTOR2E=13
+
+GPIO.setup(MOTOR1B, GPIO.OUT)
+GPIO.setup(MOTOR1E, GPIO.OUT)
+GPIO.setup(MOTOR2B, GPIO.OUT)
+GPIO.setup(MOTOR2E, GPIO.OUT)
+
+while(True):
+	userInput = input()
+	
+	if(userInput == 'w'):
+		GPIO.output(MOTOR1B,GPIO.LOW)
+		GPIO.output(MOTOR1E,GPIO.HIGH)
+		GPIO.output(MOTOR2B,GPIO.HIGH)
+		GPIO.output(MOTOR2E,GPIO.LOW)
+
+	if(userInput == 'a'):
+		GPIO.output(MOTOR1B,GPIO.HIGH)
+		GPIO.output(MOTOR1E,GPIO.LOW)
+		GPIO.output(MOTOR2B,GPIO.HIGH)
+		GPIO.output(MOTOR2E,GPIO.LOW)
+                
+	if(userInput == 's'):
+		GPIO.output(MOTOR1B,GPIO.HIGH)
+		GPIO.output(MOTOR1E,GPIO.LOW)
+		GPIO.output(MOTOR2B,GPIO.LOW)
+		GPIO.output(MOTOR2E,GPIO.HIGH)
+            
+	if(userInput == 'd'):
+		GPIO.output(MOTOR1B,GPIO.LOW)
+		GPIO.output(MOTOR1E,GPIO.HIGH)
+		GPIO.output(MOTOR2B,GPIO.LOW)
+		GPIO.output(MOTOR2E,GPIO.HIGH)
+        
+	if(userInput == 'x'):
+		GPIO.output(MOTOR1B,GPIO.LOW)
+		GPIO.output(MOTOR1E,GPIO.LOW)
+		GPIO.output(MOTOR2B,GPIO.LOW)
+		GPIO.output(MOTOR2E,GPIO.LOW)
+		
+	if(userInput == 'end'):
+		GPIO.cleanup()
+		break
+```
+
+### Challenges
+My main challenge with this process was that almost every part of the kit was broken, including the battery pack which didn't supply any voltage, the motor driver which gave no output voltage, and the switch that melted and wouldn't turn on. I had to replace the battery pack and motor driver and use a Dremel Saw to make a larger hole for a new switch. In addition, I was originally connecting power to +5V, but this was incorrect, I had to connect it to VCC, and once I fixed this error, the motors worked normally and I could control the robot as I wanted. 
 
 ### Structure
 IN PROGRESS
@@ -47,7 +111,7 @@ IN PROGRESS
 For my starter project, I built the calculator ([link](https://www.amazon.com/Kit-Calculator-Resistance-Electronic-HUAGZIMO/dp/B0D13C9SYT/ref=sr_1_3?crid=3HGJTLNZ9O2GX&dib=eyJ2IjoiMSJ9._SWtzcdxglPoBR9j02Ru8HdkQYctYGhXoQSzf1MVwW8-wdJNSkQkLmCAtn4dRp6g-6R7J9461vhIP2EF_nk7Tig6XDG9bCrlMTSlmck5MBQwLRhhnSiQUGo0QJa1GwgSj6a6-1yBKFqneN2-Z0AqO-StnMGL2G8655x5qfsjKhjBt48dYiTRy3_0E2_Jk5agtyEMTLExRFtYVrPI5ML2CKLPh8c4dT4clp-o5in2kS0.ajrpXguZyLba8zZbq_b1WT_1ccEQlOe_PpesP9bkSUM&dib_tag=se&keywords=calculator+solder&qid=1717994208&sprefix=calculator+solde%2Caps%2C148&sr=8-3)), because I thought it would be a fun way to get better at soldering and a fun project to find later on and use to my liking. It can perform all standard operations, including addition, subtraction, multiplication, and division, even with decimals.
 
 ### Summary
-The main components of the calculator are the General Purpose Input Output^[1]^ (GPIO) buttons, which can either be in a HIGH or LOW state. These signals are sent electrically to this chip, acting as the "brain" of the calculator. It contains Floating Point units (FPU) [^2], which are tiny circuits that process the floating point numbers and send an output to these two seven-segment displays [^3]. These displays can display digits from 0-9 in addition to decimal points, and update on signal from the chip. They are a simpler way to display floating-point numbers than more complex matrix displays, due to only having seven main Light-emitting diode (LED) [^4] segments. We also have a micro USB adapter, allowing us to connect our calculator to a computer and edit code as needed. Finally, we have a battery socket and a CR2032 battery [^5], a standard 3-volt battery, which powers the entire calculator and can be removed and replaced as needed.
+The main components of the calculator are the General Purpose Input Output [^1] (GPIO) buttons, which can either be in a HIGH or LOW state. These signals are sent electrically to this chip, acting as the "brain" of the calculator. It contains Floating Point units (FPU) [^2], which are tiny circuits that process the floating point numbers and send an output to these two seven-segment displays [^3]. These displays can display digits from 0-9 in addition to decimal points, and update on signal from the chip. They are a simpler way to display floating-point numbers than more complex matrix displays, due to only having seven main Light-emitting diode (LED) [^4] segments. We also have a micro USB adapter, allowing us to connect our calculator to a computer and edit code as needed. Finally, we have a battery socket and a CR2032 battery [^5], a standard 3-volt battery, which powers the entire calculator and can be removed and replaced as needed.
 
 ![Image of 2 circuits](GPIO_Button.jpg)
 
