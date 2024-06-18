@@ -40,7 +40,6 @@ For my first milestone, I completed the construction of the robot kit and all th
 
 ## Structure
 
-
 ***
 
 # Starter Milestone
