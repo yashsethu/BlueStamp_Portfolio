@@ -104,6 +104,13 @@ Now, here is some basic camera testing code:
 ```python
 
 ```
+This code has 2 main parts, with a library for each:
+
+1. The PiCamera2 Library helps us configure the camera with ```PiCamera2()``` and captures the current frame every few milliseconds with ```picam2.capture_array()```
+
+3. The OpenCV library helps us take the current frame captured by PiCamera2 and display it in a preview window, updating it on new frame from ```picam2```
+
+We can efficiently test and debug our camera and motors with these two programs, allowing us to continue building the robot's full code.
 
 ### Challenges
 My main challenge with this process was that almost every part of the kit was broken, including the battery pack which didn't supply any voltage, the motor driver which gave no output voltage, and the switch that melted and wouldn't turn on. I had to replace the battery pack and motor driver and use a Dremel Saw to make a larger hole for a new switch. In addition, I was originally connecting power to +5V, but this was incorrect, I had to connect it to VCC, and once I fixed this error, the motors worked normally and I could control the robot as I wanted. 
