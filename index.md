@@ -98,11 +98,17 @@ while(True):
 		GPIO.cleanup()
 		break
 ```
+This program uses WASD inputs to direct the directions of the motors, using a ```while True``` loop to make testing easier and using the 'end' key to break out of the infinite loop and cleanup the GPIO outputs
+
+Now, here is some basic camera testing code:
+```python
+
+```
 
 ### Challenges
 My main challenge with this process was that almost every part of the kit was broken, including the battery pack which didn't supply any voltage, the motor driver which gave no output voltage, and the switch that melted and wouldn't turn on. I had to replace the battery pack and motor driver and use a Dremel Saw to make a larger hole for a new switch. In addition, I was originally connecting power to +5V, but this was incorrect, I had to connect it to VCC, and once I fixed this error, the motors worked normally and I could control the robot as I wanted. 
 
-### Structure
+### Summary
 IN PROGRESS
 
 ***
@@ -115,7 +121,9 @@ The main components of the calculator are the General Purpose Input Output [^1] 
 
 ![Image of 2 circuits](GPIO_Button.jpg)
 
-*How a GPIO Button works*
+*How a GPIO button works: https://www.electronicshub.org/raspberry-pi-push-button-interface/*
+
+On the left, we can see that this circuit "holds" the voltage of GPIO_IN at +5v by opening the circuit at the switch. On the right, the same way the voltage is held at 0V by opening the circuit and disconnecting the +5V source.
 
 ### Challenges
 The most difficult challenge I faced during this build was related to the chip. There was originally an Integrated Circuit, or IC socket that the chip was placed in before soldering that made it easier to remove the chip. Still, a pin on the socket had broken, so after consideration, I decided that I would never need to remove the chip and soldered it onto the board to solve the problem. 
