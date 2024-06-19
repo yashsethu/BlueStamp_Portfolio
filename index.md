@@ -45,7 +45,7 @@ On the top of the robot is a Raspberry Pi 4B, powered by a large lithium-ion pow
 
 *H-bridge circuit: https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.* 
 
-As shown above, if 1 and 4 were closed, the current would flow to the right through the motor, making it spin in one direction. However, if 2 and 3 are closed, then current flows through the right through the motor, spinning it the other way. This way, we can control the motors with 4 switches instead of 4 wires.
+As shown above, if 1 and 4 were closed, the current would flow to the right through the motor, making it spin in one direction. However, if 2 and 3 are closed, then the current flows to the left through the motor, spinning it the other way. This way, we can control the motors with 4 switches instead of 4 wires.
 
 ### Testing
 To test the functionality of my robot, I used 2 test programs, one for the motors and one for the camera.
@@ -119,7 +119,7 @@ This code has 2 main parts, with a library for each:
 We can efficiently test and debug our camera and motors with these two programs, allowing us to continue building the robot's full code.
 
 ### Challenges
-My main challenge with this process was that almost every part of the kit was broken, including the battery pack which didn't supply any voltage, the motor driver which gave no output voltage, and the switch that melted and wouldn't turn on. I had to replace the battery pack and motor driver and use a Dremel Saw to make a larger hole for a new switch. In addition, I was originally connecting power to +5V, but this was incorrect, I had to connect it to VCC, and once I fixed this error, the motors worked normally and I could control the robot as I wanted. 
+My main challenge with this process was that almost every part of the kit was broken, including the battery pack which didn't supply any voltage, the motor driver which gave no output voltage, and the switch that melted and wouldn't turn on. I had to replace the battery pack and motor driver and use a Dremel Saw to make a larger hole for a new switch. In addition, I was originally connecting power to +5V, but this was incorrect, I had to connect it to VCC, and once I fixed this error, the motors worked normally and I could control the robot as I wanted. VCC accepts up to +12V on this driver and should always be used. The +5V port only exists for additional power supply in case of excessive voltage load on the driver itself.
 
 Now, I am ready to move on to my second milestone, building and testing OpenCV ball-tracking code on my Raspberry Pi.
 
