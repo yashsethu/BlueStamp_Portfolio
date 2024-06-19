@@ -45,7 +45,7 @@ On the top of the robot is a Raspberry Pi 4B, powered by a large lithium-ion pow
 
 *H-bridge circuit: https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.* 
 
-As shown above, if switches 1 and 4 were closed, the current would flow to the right through the motor, making it spin one way. However, if 2 and 3 are closed, then current flows through the right through the motor, spinning it the other direction. In this way, we can control the motors simply through 4 switches instead of 4 wires.
+As shown above, if 1 and 4 were closed, the current would flow to the right through the motor, making it spin in one direction. However, if 2 and 3 are closed, then current flows through the right through the motor, spinning it the other way. This way, we can control the motors with 4 switches instead of 4 wires.
 
 ### Testing
 To test the functionality of my robot, I used 2 test programs, one for the motors and one for the camera.
