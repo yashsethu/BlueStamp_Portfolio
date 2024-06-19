@@ -39,7 +39,13 @@ For your second milestone, explain what you've worked on since your previous mil
 For my first milestone, I completed the construction of the robot kit and all the wiring and tested that the robot and camera work with camera and motor testing code. 
 
 ### Summary
-On the top of the robot is a Raspberry Pi 4B, powered by a large lithium-ion power bank and connected to the ArduCam 5MP camera in an acrylic case. On the bottom, we have a 2 H-Bridge (A circuit that can reverse polarity) motor driver wired up with two 6V DC motors. This driver is powered by four AA batteries, providing 6V of power to the driver, in series with this switch that can open or close the circuit to control whether the motor driver is on. Finally, the bridge between the two sides, 4 jumper wires, two for each motor, come in from the Raspberry Pi and are inputted into the motor driver to control the motors.
+On the top of the robot is a Raspberry Pi 4B, powered by a large lithium-ion power bank and connected to the ArduCam 5MP camera in an acrylic case. On the bottom, we have a 2 H-Bridge [^6] (A circuit that can reverse polarity) motor driver wired up with two 6V DC [^7] (Direct current) motors. This driver is powered by four AA batteries, providing 6V of power to the driver, in series [^8] with this switch that can open or close the circuit to control whether the motor driver is on. Finally, the bridge between the two sides, 4 jumper wires, two for each motor, come in from the Raspberry Pi and are inputted into the motor driver to control the motors.
+
+![Image of an H-bridge circuit](H-bridge.png)
+
+*H-bridge circuit: https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.* 
+
+As shown above, if switches 1 and 4 were closed, the current would flow to the right through the motor, making it spin one way. However, if 2 and 3 are closed, then current flows through the right through the motor, spinning it the other direction. In this way, we can control the motors simply through 4 switches instead of 4 wires.
 
 ### Testing
 To test the functionality of my robot, I used 2 test programs, one for the motors and one for the camera.
@@ -115,8 +121,7 @@ We can efficiently test and debug our camera and motors with these two programs,
 ### Challenges
 My main challenge with this process was that almost every part of the kit was broken, including the battery pack which didn't supply any voltage, the motor driver which gave no output voltage, and the switch that melted and wouldn't turn on. I had to replace the battery pack and motor driver and use a Dremel Saw to make a larger hole for a new switch. In addition, I was originally connecting power to +5V, but this was incorrect, I had to connect it to VCC, and once I fixed this error, the motors worked normally and I could control the robot as I wanted. 
 
-### Summary
-IN PROGRESS
+Now, I am ready to move on to my second milestone, building and testing OpenCV ball-tracking code on my Raspberry Pi.
 
 ***
 
@@ -183,6 +188,14 @@ void loop() {
 [^4]: LED's (Light Emitting Diodes): https://www.rohm.com/electronics-basics/leds/what-are-leds#:~:text=LEDs%20(Light%20Emitting%20Diodes)%20are,semiconductor%20(larger%20electron%20concentration).
 
 [^5]: CR2032 Battery: https://www.cr2032.co/cr2032-functions-article.html#:~:text=The%20CR2032%20battery%20uses%20a,like%20watches%20and%20remote%20controls.
+
+### First Milestone:
+
+[^6]: H-bridge circuits: https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.
+
+[^7]: Direct current vs. Alternating current: https://learn.sparkfun.com/tutorials/alternating-current-ac-vs-direct-current-dc/all
+
+[^8]: Series vs. Parallel Circuits: https://learn.sparkfun.com/tutorials/series-and-parallel-circuits/all
 
 <!--
 # Other Resources/Examples
