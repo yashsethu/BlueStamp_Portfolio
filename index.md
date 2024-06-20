@@ -178,8 +178,6 @@ void loop() {
 
 # Resources 
 
-### Starter project:
-
 [^1]: GPIO Buttons: https://www.renesas.com/us/en/support/engineer-school/mcu-programming-peripherals-01-gpio
 
 [^2]: FPU (Floating point unit): https://www.techopedia.com/definition/2865/floating-point-unit-fpu
@@ -189,9 +187,6 @@ void loop() {
 [^4]: LED's (Light Emitting Diodes): https://www.rohm.com/electronics-basics/leds/what-are-leds#:~:text=LEDs%20(Light%20Emitting%20Diodes)%20are,semiconductor%20(larger%20electron%20concentration).
 
 [^5]: CR2032 Battery: https://www.cr2032.co/cr2032-functions-article.html#:~:text=The%20CR2032%20battery%20uses%20a,like%20watches%20and%20remote%20controls.
-
-
-### First Milestone:
 
 [^6]: H-bridge circuits: https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.
 
