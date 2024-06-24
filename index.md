@@ -33,7 +33,7 @@ To assemble my ultrasonic sensor circuit, I used a voltage divider [^9] with a 1
 
 *How a voltage divider works and how to calculate the output: [https://studymind.co.uk/notes/potential-dividers/](https://studymind.co.uk/notes/potential-dividers/)*
 
-As shown above, the input voltage is divided, according to the formula, to supply a specific output voltage
+As shown above, two resistors, in series allow us to alter the voltage sent to Vout, which will be smaller than Vin
 
 ### Testing
 To test my ball-tracking functionality and my ultrasonic sensor, I used 2 additional test programs.
