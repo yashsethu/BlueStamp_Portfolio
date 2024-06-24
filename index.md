@@ -29,6 +29,12 @@ For my second milestone, I have completed building my ultrasonic sensor voltage 
 ### Summary
 To assemble my ultrasonic sensor circuit, I used a voltage divider [^9] with a 1K and 2K Ohm resistor to connect the 5V Ultrasonic sensor to my 3.3V operating Raspberry Pi. For my OpenCV software, my program has two main parts; the first is capturing camera footage with PiCamera2 [^10] (A PiCamera Library for camera functions) and using OpenCV (cv.imShow()) [^11] to show the frame on a preview. The second is image processing, using OpenCV to resize the image, blur the frame to reduce noise, and then generate a color mask for red with the HSV color space, dilating and eroding the image for even more precision. Then, a separate function takes in the color mask and finds the largest contour, identifying the ball quickly and precisely.
 
+![Image of a voltage divider circuit](voltage_divider.png)
+
+*How a voltage divider works and how to calculate the output: [https://studymind.co.uk/notes/potential-dividers/](https://studymind.co.uk/notes/potential-dividers/)
+
+As shown above, the input voltage is divided, according to the formula, to supply a specific output voltage
+
 ### Testing
 To test my ball-tracking functionality and my ultrasonic sensor, I used 2 additional test programs.
 
