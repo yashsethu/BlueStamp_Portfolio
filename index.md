@@ -31,7 +31,7 @@ To assemble my ultrasonic sensor circuit, I used a voltage divider [^9] with a 1
 
 ![Image of a voltage divider circuit](voltage_divider.png)
 
-*How a voltage divider works and how to calculate the output: [https://studymind.co.uk/notes/potential-dividers/](https://studymind.co.uk/notes/potential-dividers/)
+*How a voltage divider works and how to calculate the output: [https://studymind.co.uk/notes/potential-dividers/](https://studymind.co.uk/notes/potential-dividers/)*
 
 As shown above, the input voltage is divided, according to the formula, to supply a specific output voltage
 
