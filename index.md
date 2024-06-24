@@ -21,19 +21,15 @@ For your final milestone, explain the outcome of your project. Key details to in
 - What your biggest challenges and triumphs were at BSE
 - A summary of key topics you learned about
 - What you hope to learn in the future after everything you've learned at BSE
+-->
 
 # Second Milestone
+For my second milestone, I have completed building my ultrasonic sensor voltage divider and circuit and have built and tested my ball-tracking code with OpenCV.
 
-**Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
+### Summary
+To assemble my ultrasonic sensor circuit, I used a voltage divider [] (A circuit that divides voltage) with a 1K and 2K Ohm resistor to connect the 5V Ultrasonic sensor to my 3.3V operating Raspberry Pi. 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/y3VAmNlER5Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-For your second milestone, explain what you've worked on since your previous milestone. You can highlight:
-- Technical details of what you've accomplished and how they contribute to the final goal
-- What has been surprising about the project so far
-- Previous challenges you faced that you overcame
-- What needs to be completed before your final milestone 
--->
+***
 
 # First Milestone
 For my first milestone, I completed the construction of the robot kit and all the wiring and tested that the robot and camera work with camera and motor testing code. 
@@ -146,6 +142,8 @@ My main challenge with this process was that almost every part of the kit was br
 
 Now, I am ready to move on to my second milestone, building and testing OpenCV ball-tracking code on my Raspberry Pi.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/S4u5ani-CXQ?si=F4eayMsDoPPQVb7L" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ***
 
 # Starter Project
@@ -201,21 +199,21 @@ void loop() {
 
 # Resources 
 
-[^1]: GPIO Buttons: https://www.renesas.com/us/en/support/engineer-school/mcu-programming-peripherals-01-gpio
+[^1]: (GPIO Buttons)[https://www.renesas.com/us/en/support/engineer-school/mcu-programming-peripherals-01-gpio]
 
-[^2]: FPU (Floating point unit): https://www.techopedia.com/definition/2865/floating-point-unit-fpu
+[^2]: (FPU (Floating point unit))[https://www.techopedia.com/definition/2865/floating-point-unit-fpu]
 
-[^3]: Seven-segment displays: https://www.electronics-tutorials.ws/blog/7-segment-display-tutorial.html
+[^3]: (Seven-segment displays)[https://www.electronics-tutorials.ws/blog/7-segment-display-tutorial.html]
 
-[^4]: LED's (Light Emitting Diodes): https://www.rohm.com/electronics-basics/leds/what-are-leds#:~:text=LEDs%20(Light%20Emitting%20Diodes)%20are,semiconductor%20(larger%20electron%20concentration).
+[^4]: (LED's (Light Emitting Diodes))[https://www.rohm.com/electronics-basics/leds/what-are-leds#:~:text=LEDs%20(Light%20Emitting%20Diodes)%20are,semiconductor%20(larger%20electron%20concentration).]
 
-[^5]: CR2032 Battery: https://www.cr2032.co/cr2032-functions-article.html#:~:text=The%20CR2032%20battery%20uses%20a,like%20watches%20and%20remote%20controls.
+[^5]: (CR2032 Battery([https://www.cr2032.co/cr2032-functions-article.html#:~:text=The%20CR2032%20battery%20uses%20a,like%20watches%20and%20remote%20controls.]
 
-[^6]: H-bridge circuits: https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.
+[^6]: (H-bridge circuits)[https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.]
 
-[^7]: Direct current vs. Alternating current: https://learn.sparkfun.com/tutorials/alternating-current-ac-vs-direct-current-dc/all
+[^7]: (Direct current vs. Alternating current)[https://learn.sparkfun.com/tutorials/alternating-current-ac-vs-direct-current-dc/all]
 
-[^8]: Series vs. Parallel Circuits: https://learn.sparkfun.com/tutorials/series-and-parallel-circuits/all
+[^8]: (Series vs. Parallel Circuits)[https://learn.sparkfun.com/tutorials/series-and-parallel-circuits/all]
 
 <!--
 # Other Resources/Examples
