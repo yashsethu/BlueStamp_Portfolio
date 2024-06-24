@@ -27,7 +27,100 @@ For your final milestone, explain the outcome of your project. Key details to in
 For my second milestone, I have completed building my ultrasonic sensor voltage divider and circuit and have built and tested my ball-tracking code with OpenCV.
 
 ### Summary
-To assemble my ultrasonic sensor circuit, I used a voltage divider [] (A circuit that divides voltage) with a 1K and 2K Ohm resistor to connect the 5V Ultrasonic sensor to my 3.3V operating Raspberry Pi. 
+To assemble my ultrasonic sensor circuit, I used a voltage divider [^9] (A circuit that divides voltage) with a 1K and 2K Ohm resistor to connect the 5V Ultrasonic sensor to my 3.3V operating Raspberry Pi. For my OpenCV software, my program has two main parts; the first is capturing camera footage with PiCamera2 [^10] (A PiCamera Library for camera functions) and using OpenCV (cv.imShow()) [^11] to show the frame on a preview. The second is image processing, using OpenCV to resize the image, blur the frame to reduce noise, and then generate a color mask for red with the HSV color space, dilating and eroding the image for even more precision. Then, a separate function takes in the color mask and finds the largest contour, identifying the ball quickly and precisely.
+
+### Testing
+To test my ball-tracking functionality and my ultrasonic sensor, I used 2 additional test programs.
+
+Here is my ultrasonic sensor testing program:
+```python
+from gpiozero import DistanceSensor
+
+ultrasonic = DistanceSensor(echo=24, trigger=25)
+
+while True:
+    print(ultrasonic.distance)
+```
+This program sets up the ultrasonic sensors with the respective board pins and prints the distance received from the sensor continuously.
+
+Here is my ball-tracking test code:
+```python
+from picamera2 import Picamera2
+import numpy as np
+import cv2
+import time
+
+redLower = (150, 140, 1)
+redUpper = (190, 255, 255)
+
+picam2 = Picamera2()
+picam2.configure(picam2.create_preview_configuration(main={"format": 'RGB888', "size": (320, 240)}))
+picam2.start()
+time.sleep(2)
+
+#Returns a mask of all colors within the red HSV space
+def find_color_mask(frame):
+	#Blur the image and convert to HSV color space
+	blurred = cv2.GaussianBlur(frame, (11, 11), 0)
+	hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
+	
+	#Erode and Dilate to remove noise
+	mask = cv2.inRange(hsv, redLower, redUpper)
+	mask = cv2.erode(mask, None, iterations=2)
+	mask = cv2.dilate(mask, None, iterations=2)
+	
+	return mask
+
+#Finds the largest "blob" on the screen
+def find_largest_contour(frame):
+	# Finds contours in the provided image
+	cnts, _ = cv2.findContours(frame.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	if len(cnts) > 0:
+		c = max(cnts, key=cv2.contourArea)
+		((x, y), radius) = cv2.minEnclosingCircle(c)
+		M = cv2.moments(c)
+		center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+	else:
+		(x, y) = (0, 0)
+		radius = 5
+		center = (0, 0)
+	
+	return x, y, radius, center
+	
+
+while True:
+	frame = picam2.capture_array()
+	
+	if frame is None:
+		print("Error: Frame not captured")
+		break
+	
+	mask = find_color_mask(frame)
+	
+	x, y, radius, center = find_largest_contour(mask)
+	
+	if radius > 10:
+			# draw the circle and centroid on the frame,
+			# then update the list of tracked points
+			cv2.circle(frame, (int(x), int(y)), int(radius), (255, 0, 0), 2)
+			cv2.circle(frame, center, 5, (255, 0, 0), -1)
+	
+	cv2.imshow("Tracking", frame)
+	
+	if(cv2.waitKey(1) & 0xff == ord('q')): #Press q to break the loop and stop moving 
+		break
+
+cv2.destroyAllWindows()
+picam2.stop()
+```
+As explained, the code processes the current frame from the live camera feed and draws a circle around the detected ball.
+
+Using this code, we can test to see that our ultrasonic sensor records accurate distances and that our ball-tracking functionality works.
+
+### Challenges
+My main challenge with this milestone was the ultrasonic sensor, while making the circuit I accidently fried a sensor due to an incorrect connection, but after replacing the sensor and verifying my layout, the sensor worked as expected
+
+Now, I'll move on to building my main code, compiling together all of my work so far.
 
 ***
 
@@ -39,7 +132,7 @@ On the top of the robot is a Raspberry Pi 4B, powered by a large lithium-ion pow
 
 ![Image of an H-bridge circuit](H-bridge.png)
 
-*H-bridge circuit: https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.* 
+*H-bridge circuit: [https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.](https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.)* 
 
 As shown above, if 1 and 4 were closed, the current would flow to the right through the motor, making it spin in one direction. However, if 2 and 3 are closed, then the current flows to the left through the motor, spinning it the other way. This way, we can control the motors with 4 switches instead of 4 wires.
 
@@ -154,7 +247,7 @@ The main components of the calculator are the General Purpose Input Output [^1] 
 
 ![Image of 2 circuits](GPIO_Button.jpg)
 
-*How a GPIO button works: https://www.electronicshub.org/raspberry-pi-push-button-interface/*
+*How a GPIO button works: [https://www.electronicshub.org/raspberry-pi-push-button-interface/](https://www.electronicshub.org/raspberry-pi-push-button-interface/)*
 
 On the left, we can see that this circuit "holds" the voltage of GPIO_IN at +5v by opening the circuit at the switch. On the right, the same way the voltage is held at 0V by opening the circuit and disconnecting the +5V source.
 
