@@ -3,5 +3,5 @@ plugins:
 - jekyll-remote-theme
 markdown: kramdown
 title: "Ball Tracking Robot"
-description: "Yash Sethuraman"
+description: "Yash S."
 show_downloads: false
