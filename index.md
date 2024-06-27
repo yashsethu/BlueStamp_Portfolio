@@ -12,10 +12,79 @@ The Ball-tracking Robot uses the Raspberry Pi system along with the Open Compute
 For my final milestone, I have completed my ball-tracking code with obstacle detection and have tested and fine-tuned my parameters for my vision-based tracking. I also have added 2 additional ultrasonic sensors for more accurate obstacle detection.
 
 ### Summary
-I included many logic layers in my code to ensure every edge case would be handled properly or the action would be skipped. I first check whether an obstacle is detected with my 3 ultrasonic sensors, making sure that the obstacle is not the ball. Then, I go through 3 stages of tracking, searching (finding the ball in the 360-degree perimeter), navigating (turning and moving towards the ball), and the "lost" phase (the ball was found, but has left the camera frame), iterating between the "lost" and navigating until the robot is parked in front of the ball. In addition, I replicated my ultrasonic sensor circuit twice to accommodate two more voltage dividers on the same breadboard.
+I included many logic layers in my code to ensure every edge case would be handled properly or the action would be skipped. 
+
+First, I check whether an obstacle is detected to avoid a collision:
+```python
+if not no_obstacle(distance_C, distance_L, distance_R):
+        print("Obstacle detetcted")
+        stop()
+        sleep(0.05)
+```
+
+If there is no obstacle, then we check whether we are still searching for the ball (not seen yet), and if so, spin right to make first contact with the ball:
+```python
+elif not found:
+        sharp_right()
+        sleep(0.05)
+        stop()
+```
+
+Once the ball is found, we check whether the ball is on the left or right, log that as the last direction seen, and move in that direction:
+```python
+elif found and in_frame:
+        if x > 210:
+            direction = "right"
+            sharp_right()
+        elif x < 110:
+            direction = "left"
+            sharp_left()
+        elif 110 <= x <= 210:
+            forward()
+        sleep(0.05)
+        stop()
+```
+
+If the ball is moving, or for some reason leaves the camera frame, we move in the direction we last saw the ball:
+```python
+elif found and not in_frame:
+        if direction == "right":
+            sharp_right()
+        elif direction == "left":
+            sharp_left()
+        sleep(0.05)
+        stop()
+```
+By splitting up the tracking process into stages, I can efficiently find and actively navigate to the ball.
+
+In addition, I added 2 more ultrasonic sensors to increase the accuracy of obstacle detection:
+```python
+# Setup ultrasonic sensor
+Trigger_C = 22
+Echo_C = 18
+Trigger_L = 31
+Echo_L = 29
+Trigger_R = 33
+Echo_R = 32
+
+GPIO.setup(Trigger_C, GPIO.OUT)  # Trigger 1
+GPIO.setup(Echo_C, GPIO.IN)  # Echo 1
+
+GPIO.setup(Trigger_L, GPIO.OUT)  # Trigger 1
+GPIO.setup(Echo_L, GPIO.IN)  # Echo 1
+
+GPIO.setup(Trigger_R, GPIO.OUT)  # Trigger 1
+GPIO.setup(Echo_R, GPIO.IN)  # Echo 1
+
+GPIO.output(Trigger_C, False)
+GPIO.output(Trigger_L, False)
+GPIO.output(Trigger_R, False)
+```
+
+With these sensors, I can make sure that my obstacle detection is as accurate and quick as possible.
 
 ### Challenges
-My main challenge in building this milestone was the ultrasonic sensors, adding two more voltage dividers on the same breadboard proved extremely messy and disorganized, and I had to keep track of my wires to make sure everything was compact enough to work.
+My main challenge in building this milestone was the ultrasonic sensors, adding two more voltage dividers on the same breadboard proved extremely messy and disorganized, and I had to keep track of my wires to make sure everything was compact enough to work. Additionally, the logic of my code was tricky to debug and process, but I was able to debug and fine-tune my code to make the process as smooth as possible.
 
 Now, I'll move on to building modifications for my project, like a pan-tilt servo head or a camera display.
 
