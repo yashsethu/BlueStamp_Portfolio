@@ -12,7 +12,16 @@ The Ball-tracking Robot uses the Raspberry Pi system along with the Open Compute
 For my final milestone, I have completed my ball-tracking code with obstacle detection and have tested and fine-tuned my parameters for my vision-based tracking. I also have added 2 additional ultrasonic sensors for more accurate obstacle detection.
 
 ### Summary
-In my code, I included many logic layers to ensure every edge case would be handled properly or the action would be skipped. I first check whether an obstacle is detected with my 3 ultrasonic sensors, making sure that the obstacle is not the ball. Then, I go through 3 stages of tracking, searching (finding the ball in the 360 degree perimeter), navigating (turning and moving towards the ball), and the "lost" phase (ball was found, but has left the camera frame), iterating between the "lost" and navigating until the robot is parked in front of the ball.
+I included many logic layers in my code to ensure every edge case would be handled properly or the action would be skipped. I first check whether an obstacle is detected with my 3 ultrasonic sensors, making sure that the obstacle is not the ball. Then, I go through 3 stages of tracking, searching (finding the ball in the 360-degree perimeter), navigating (turning and moving towards the ball), and the "lost" phase (the ball was found, but has left the camera frame), iterating between the "lost" and navigating until the robot is parked in front of the ball. In addition, I replicated my ultrasonic sensor circuit twice to accommodate two more voltage dividers on the same breadboard.
+
+### Challenges
+My main challenge in building this milestone was the ultrasonic sensors, adding two more voltage dividers on the same breadboard proved extremely messy and disorganized, and I had to keep track of my wires to make sure everything was compact enough to work.
+
+Now, I'll move on to building modifications for my project, like a pan-tilt servo head or a camera display.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HNnNtqBADoQ?si=pBmaDHtq0rOcG0nd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+***
 
 # Second Milestone
 For my second milestone, I have completed building my ultrasonic sensor voltage divider and circuit and have built and tested my ball-tracking code with OpenCV.
@@ -119,7 +128,7 @@ My main challenge with this milestone was the ultrasonic sensor, while making th
 
 Now, I'll move on to building my main code, compiling together all of my work so far.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/HNnNtqBADoQ?si=pBmaDHtq0rOcG0nd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/hbq9Ot5CEPs?si=ffv2ASKm7EyYdEfE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ***
 
@@ -262,23 +271,197 @@ At this point, I will move on to my main project, the ball-tracking robot, and b
 <!--
 # Schematics 
 Here's where you'll put images of your schematics. [Tinkercad](https://www.tinkercad.com/blog/official-guide-to-tinkercad-circuits) and [Fritzing](https://fritzing.org/learning/) are both great resoruces to create professional schematic diagrams, though BSE recommends Tinkercad becuase it can be done easily and for free in the browser. 
-
-# Code
-Here's where you'll put your code. The syntax below places it into a block of code. Follow the guide [here]([url](https://www.markdownguide.org/extended-syntax/)) to learn how to customize it to your project needs. 
-
-```c++
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  Serial.println("Hello World!");
-}
-
-void loop() {
-  // put your main code here, to run repeatedly:
-
-}
-```
 -->
+
+# Full Code
+```python
+# Import motor and camera setup from our files
+from motor import forward, reverse, leftturn, rightturn, stop, sharp_left, sharp_right, back_left, back_right
+from ball import find_color_mask, find_largest_contour
+from time import sleep
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BOARD)
+
+# Setup ultrasonic sensor
+Trigger_C = 22
+Echo_C = 18
+Trigger_L = 31
+Echo_L = 29
+Trigger_R = 33
+Echo_R = 32
+
+GPIO.setup(Trigger_C, GPIO.OUT)  # Trigger 1
+GPIO.setup(Echo_C, GPIO.IN)  # Echo 1
+
+GPIO.setup(Trigger_L, GPIO.OUT)  # Trigger 1
+GPIO.setup(Echo_L, GPIO.IN)  # Echo 1
+
+GPIO.setup(Trigger_R, GPIO.OUT)  # Trigger 1
+GPIO.setup(Echo_R, GPIO.IN)  # Echo 1
+
+GPIO.output(Trigger_C, False)
+GPIO.output(Trigger_L, False)
+GPIO.output(Trigger_R, False)
+
+def sonar(GPIO_TRIGGER,GPIO_ECHO):
+    start=0                     
+    stop=0
+    # Set pins as output and input
+    GPIO.setup(GPIO_TRIGGER,GPIO.OUT)  # Trigger
+    GPIO.setup(GPIO_ECHO,GPIO.IN)    # Echo
+     
+    # Set trigger to False (Low)
+    GPIO.output(GPIO_TRIGGER, False)
+     
+    # Allow module to settle
+    time.sleep(0.01)
+         
+    #while distance > 5:
+    #Send 10us pulse to trigger
+    GPIO.output(GPIO_TRIGGER, True)
+    time.sleep(0.00001)
+    GPIO.output(GPIO_TRIGGER, False)
+    begin = time.time()
+    while GPIO.input(GPIO_ECHO)==0 and time.time()<begin+0.05:
+        start = time.time()
+     
+    while GPIO.input(GPIO_ECHO)==1 and time.time()<begin+0.1:
+        stop = time.time()
+     
+    # Calculate pulse length
+    elapsed = stop-start
+    
+    # Distance pulse traveled in that time is time multiplied by the speed of sound (cm/s)
+    distance = elapsed * 34300
+     
+    # That was the distance there and back, so take half of the value
+    distance = distance / 2
+
+    # Reset GPIO settings, return distance (in cm) appropriate for robot movements 
+    return distance
+
+def no_obstacle(distance_c, distance_l, distance_r):
+    if(distance_c > sensor_proximity and distance_l > sensor_proximity and distance_r > sensor_proximity):
+        return True
+    else:
+        return False
+
+# Setup motors
+
+MOTOR1B = 16  # LEFT motor
+MOTOR1E = 15
+
+MOTOR2B = 11  # RIGHT motor
+MOTOR2E = 13
+
+GPIO.setup(MOTOR1B, GPIO.OUT)
+GPIO.setup(MOTOR1E, GPIO.OUT)
+GPIO.setup(MOTOR2B, GPIO.OUT)
+GPIO.setup(MOTOR2E, GPIO.OUT)
+
+# Setup camera
+from picamera2 import Picamera2
+import numpy as np
+import cv2
+import time
+
+redLower = (150, 140, 1)
+redUpper = (190, 255, 255)
+
+picam2 = Picamera2()
+picam2.configure(picam2.create_preview_configuration(main={"format": 'RGB888', "size": (320, 240)}))
+picam2.start()
+time.sleep(1)
+
+# Ultrasonic Sensor proximity parameter (centimeter)
+sensor_proximity = 10
+rerouting_proximity = 17.5
+
+# Computer vision lower and upper turning range parameters for tracking
+lower_range = 30
+upper_range = 290
+
+found = False
+in_frame = False
+direction = "none"
+
+while True:
+    # Process current frame with our functions
+    frame = picam2.capture_array()
+
+    if frame is None:
+        print("Error: Frame not captured")
+        break
+
+    height, width = frame.shape[:2]
+    
+    print(str(height) + " X " + str(width))
+
+    mask = find_color_mask(frame)
+    x, y, radius, center, area = find_largest_contour(mask)
+    
+    print ("Area: " + str(area))
+    
+    print("Coordinates: " + str(x) + ", " + str(y))
+
+    # Distance coming from front ultrasonic sensor
+    distance_C = sonar(Trigger_C, Echo_C)
+    distance_L = sonar(Trigger_L, Echo_L)
+    distance_R = sonar(Trigger_R, Echo_R)
+    print("D: " + str(distance_C) + ", " + str(distance_L) + ", " + str(distance_R))
+    
+    if radius > 10:
+        if not found:
+            found = True
+            print("Found: " + str(found))
+        in_frame = True
+        cv2.circle(frame, (int(x), int(y)), int(radius), (255, 0, 0), 2)
+        cv2.circle(frame, center, 5, (255, 0, 0), -1)
+    else:
+        in_frame = False
+    
+    if not no_obstacle(distance_C, distance_L, distance_R):
+        print("Obstacle detetcted")
+        stop()
+        sleep(0.05)
+    elif not found:
+        sharp_right()
+        sleep(0.05)
+        stop()
+    elif found and in_frame:
+        if x > 210:
+            direction = "right"
+            sharp_right()
+        elif x < 110:
+            direction = "left"
+            sharp_left()
+        elif 110 <= x <= 210:
+            forward()
+        sleep(0.05)
+        stop()
+    elif found and not in_frame:
+        if direction == "right":
+            sharp_right()
+        elif direction == "left":
+            sharp_left()
+        sleep(0.05)
+        stop()
+    
+    stop()
+    
+    print(direction)
+    
+    cv2.imshow("Feed", frame)  # Shows frame with bounding box
+
+    if cv2.waitKey(1) & 0xff == ord('q'):  # Press q to break the loop and stop moving
+        stop()
+        break
+
+cv2.destroyAllWindows()
+picam2.stop()
+GPIO.cleanup()
+```
 
 # Bill of Materials
 
@@ -294,23 +477,13 @@ void loop() {
 ***
 
 # Resources 
-
-### Starter Project
 [^1]: [GPIO Buttons](https://www.renesas.com/us/en/support/engineer-school/mcu-programming-peripherals-01-gpio) 
 [^2]: [FPU (Floating point unit)](https://www.techopedia.com/definition/2865/floating-point-unit-fpu) 
 [^3]: [Seven-segment displays](https://www.electronics-tutorials.ws/blog/7-segment-display-tutorial.html)
 [^4]: [LED's (Light Emitting Diodes)](https://www.rohm.com/electronics-basics/leds/what-are-leds#:~:text=LEDs%20(Light%20Emitting%20Diodes)%20are,semiconductor%20(larger%20electron%20concentration).) 
 [^5]: [CR2032 Battery](https://www.cr2032.co/cr2032-functions-article.html#:~:text=The%20CR2032%20battery%20uses%20a,like%20watches%20and%20remote%20controls.)
-
-***
-
-### First Milestone
 [^6]: [H-bridge circuits](https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.) 
 [^7]: [Direct current vs. Alternating current](https://learn.sparkfun.com/tutorials/alternating-current-ac-vs-direct-current-dc/all)
 [^8]: [Series vs. Parallel Circuits](https://learn.sparkfun.com/tutorials/series-and-parallel-circuits/all) 
-
-***
-
-### Second Milestone
 [^10]: [PiCamera2 Library](https://pypi.org/project/picamera2/0.2.2/)
 [^11]: [OpenCV Preview](https://docs.opencv.org/3.4/dd/d43/tutorial_py_video_display.html)
