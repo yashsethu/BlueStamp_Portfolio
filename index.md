@@ -141,7 +141,7 @@ Now that I knew that the pan-tilt servo mount was functional, I implemented this
 ### Challenges
 My main challenge with my first modification was the servo jitter, as before using the ```pigpio``` library, servo movements were very shaky and not smooth due to serial noise. However, after using the recommended libraries, the servo jitter was fixed and my servos were much more smooth and precise.
 
-In addition, I was originally using my current simple code to incrementally change the servo angles depending on the side of the axes the ball was on, but I tried actively calculating the optimal servo angles to point at the ball with linear regression and a decent amount of trigonometry. Unfortunately, that method was not very precise and caused a lot of jitter and imprecision, so I ended up switching back to my simple model for the most reliability.
+In addition, I was originally using my current simple code to incrementally change the servo angles depending on the side of the axes the ball was on, but I tried actively calculating the optimal servo angles to point at the ball with linear regression and a decent amount of trigonometry. This made it so that the servo would move more the further it was from the ball and would move exactly to one position instead of slowly loving until meeting a position. Unfortunately, that method was not very precise and caused a lot of jitter and imprecision, so I ended up switching back to my simple model for the most reliability.
 
 ***
 
