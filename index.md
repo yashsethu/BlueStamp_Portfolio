@@ -13,8 +13,24 @@ For my first modification, I have added a pan-tilt servo mount that allows the r
 
 ![Image of pan-servo mount](mount.jpeg)
 
+*Figure 1: Image of my pan-tilt servo mount*
+
 ### Summary
-After adding my pan-tilt servo mount, with a servo to move the camera left and right (pan) and a servo to move it up and down (tilt), I used the following logic to test its functionality;
+After adding a servo to move the camera left and right (pan) and a servo to move it up and down (tilt), I used the following code to test its functionality
+
+For servo control, I set my PWM with: ```pwm = pigpio.pi()```. The pigpio library constantly updates the servo angle and mitigates serial noise to create a smooth-moving, jitter-free servo. This way, the pan-tilt servo mount always moves to keep the ball centered in the frame of the camera.
+
+In this block, I aim to turn the servo in the direction of the ball by incrementing the servo in the desired direction. Steps: 1) Log the direction the ball was last seen, 2) Check whether the servo is at a maximum position, and 3) Increment the PWM signal by 10  to turn the servo in the logged direction. See code below:
+
+```python
+h_direction = "left" # Step 1
+if pan_a < 2500: #Step 2: If servo is less than maximum
+	pan_a += 10 # Step 3: Increment the PWM signal
+pwm.set_servo_pulsewidth(pan, pan_a) # Send the signal
+```
+
+The above code is repeated for multiple directions. See code below:
+
 ```python
     if found:
         if x < 150:
@@ -60,16 +76,20 @@ After adding my pan-tilt servo mount, with a servo to move the camera left and r
             pwm.set_servo_pulsewidth(tilt, tilt_a)
 ```
 
-This code uses the same vision logic as the ball tracking robot itself but uses the ```pigpio``` library to reduce the servo jitter and turns the servos based on the ball's location. This way, the pan-tilt servo mount always moves to keep the ball centered in the frame of the camera.
+This code uses the same vision-logic as the ball-tracking robot itself but uses the pigpio library to reduce the servo jitter.
+
+Once the pan-tilt servo mount was functional, I implemented this code my servo code with my final milestone code to make a robot with two modes:  1) regular ball tracking, and 2) stationary ball tracking. Usually, the ball-tracking robot can only track a ball close to the ground, and only on the horizontal axis, but the stationary tracking mode allows the robot to track the ball on both axes with high precision.
 
 ![Flowchart of code logic](Diagram.png)
 
-Now that I knew that the pan-tilt servo mount was functional, I implemented this code with my final milestone code to make a robot with 2 modes; the first being regular ball tracking, and the second being stationary ball tracking that allows for up-down ball tracking in opposition to just following the ball on the ground with only the left-right axis. (Check main code)
+*Figure 2: Flowchart of servo logic*
 
 ### Challenges
-My main challenge with my first modification was the servo jitter, as before using the ```pigpio``` library, servo movements were very shaky and not smooth due to serial noise. However, after using the recommended libraries, the servo jitter was fixed and my servos were much more smooth and precise.
+My main challenge with my first modification was the servo jitter, as before using the pigpio library, servo movements were very shaky and not smooth due to serial noise. However, after using the recommended libraries, the servo jitter was fixed and my servos were much more smooth and precise as a result of constant control and updating servo PWM.
 
-In addition, I was originally using my current simple code to incrementally change the servo angles depending on the side of the axes the ball was on, but I tried actively calculating the optimal servo angles to point at the ball with linear regression and a decent amount of trigonometry. This made it so that the servo would move more the further it was from the ball and would move exactly to one position instead of slowly loving until meeting a position. Unfortunately, that method was not very precise and caused a lot of jitter and imprecision, so I ended up switching back to my simple model for the most reliability.
+I also tried a more advanced method of angle updating, using trigonometry and linear scaling. In this method, I use trigonometry to calculate the exact angle to set each servo to every few milliseconds. This way, instead of increasing angles until the target was met, the exact angle could be achieved immediately. In addition, using linear scaling helped make the servo move quicker the farther away it was from the ball. However, this method turned out to be imprecise and increased servo jitter, so I scrapped this method and reverted to my original simple code.
+
+Now, I'll move on to my second modification, Tenser Flow object detection
 
 ***
 
@@ -165,7 +185,7 @@ To assemble my ultrasonic sensor circuit, I used a voltage divider [^9] with a 1
 
 ![Image of a voltage divider circuit](voltage_divider.png)
 
-*Figure 1: How a voltage divider works and how to calculate the output: [https://studymind.co.uk/notes/potential-dividers/](https://studymind.co.uk/notes/potential-dividers/)*
+*Figure 3: How a voltage divider works and how to calculate the output: [https://studymind.co.uk/notes/potential-dividers/](https://studymind.co.uk/notes/potential-dividers/)*
 
 As shown above, two resistors, in series allow us to alter the voltage sent to Vout, which will be smaller than Vin
 
@@ -274,7 +294,7 @@ On the top of the robot is a Raspberry Pi 4B, powered by a large lithium-ion pow
 
 ![Image of an H-bridge circuit](H-bridge.png)
 
-*Figure 2: H-bridge circuit: [https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.](https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.)* 
+*Figure 4: H-bridge circuit: [https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.](https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.)* 
 
 As shown above, if 1 and 4 were closed, the current would flow to the right through the motor, making it spin in one direction. However, if 2 and 3 are closed, then the current flows to the left through the motor, spinning it the other way. This way, we can control the motors with 4 switches instead of 4 wires.
 
@@ -389,7 +409,7 @@ The main components of the calculator are the General Purpose Input Output [^1] 
 
 ![Image of 2 circuits](GPIO_Button.jpg)
 
-*Figure 3: How a GPIO button works: [https://www.electronicshub.org/raspberry-pi-push-button-interface/](https://www.electronicshub.org/raspberry-pi-push-button-interface/)*
+*Figure 5: How a GPIO button works: [https://www.electronicshub.org/raspberry-pi-push-button-interface/](https://www.electronicshub.org/raspberry-pi-push-button-interface/)*
 
 On the left, we can see that this circuit "holds" the voltage of GPIO_IN at +5v by opening the circuit at the switch. On the right, the same way the voltage is held at 0V by opening the circuit and disconnecting the +5V source.
 
