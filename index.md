@@ -10,70 +10,11 @@ The Ball-tracking Robot uses the Raspberry Pi system along with the Open Compute
 
 # Modification 1
 For my first modification, I have added a pan-tilt servo mount that allows the robot to track the ball while stationary and while moving.
+![Image of pan-servo mount](mount.jpeg)
 
 ### Summary
-After adding my pan-tilt servo mount, with a servo to move the camera left and right (pan) and a servo to move it up and down (tilt), I used the following code to test its functionality;
+After adding my pan-tilt servo mount, with a servo to move the camera left and right (pan) and a servo to move it up and down (tilt), I used the following logic to test its functionality;
 ```python
-import pigpio
-import time
-from picamera2 import Picamera2
-import cv2
-import time
-from ball import find_color_mask, find_largest_contour
-import os
-
-# Setup the camera
-redLower = (150, 140, 1)
-redUpper = (190, 255, 255)
-
-picam2 = Picamera2()
-picam2.configure(
-    picam2.create_preview_configuration(main={"format": "RGB888", "size": (320, 240)})
-)
-picam2.start()
-time.sleep(1)
-
-# Setup the pan-tilt servo
-pan = 16
-tilt = 26
-
-pan_a = 1500
-tilt_a = 1500
-
-v_direction = "none"
-h_direction = "right"
-
-pwm = pigpio.pi()
-
-pwm.set_mode(pan, pigpio.OUTPUT)
-pwm.set_mode(tilt, pigpio.OUTPUT)
-
-pwm.set_PWM_frequency(pan, 50)
-pwm.set_PWM_frequency(tilt, 50)
-
-# Turn the servos to their default position
-print("90 deg")
-pwm.set_servo_pulsewidth(pan, 1500)
-pwm.set_servo_pulsewidth(tilt, 1500)
-time.sleep(1)
-
-found = False
-
-while True:
-    # Process the frame and track the ball
-    frame = picam2.capture_array()
-
-    mask = find_color_mask(frame)
-    x, y, radius, center, area = find_largest_contour(mask)
-
-    if radius > 20:
-        found = True
-        cv2.circle(frame, (int(x), int(y)), int(radius), (255, 0, 0), 2)
-        cv2.circle(frame, center, 5, (255, 0, 0), -1)
-    else:
-        found = False
-
-    # Turn the pan servo left or right and the tilt servo up or down depending on where the ball is
     if found:
         if x < 150:
             h_direction = "left"
@@ -116,25 +57,11 @@ while True:
             if tilt_a > 500:
                 tilt_a -= 10
             pwm.set_servo_pulsewidth(tilt, tilt_a)
-
-    cv2.imshow("Feed", frame)  # Shows frame with bounding box
-
-    if cv2.waitKey(1) & 0xFF == ord("q"):  # Press q to break the loop and stop moving
-        break
-
-
-# Cleanup
-pwm.set_PWM_dutycycle(pan, 0)
-pwm.set_PWM_dutycycle(tilt, 0)
-
-pwm.set_PWM_frequency(pan, 0)
-pwm.set_PWM_frequency(tilt, 0)
-
-cv2.destroyAllWindows()
-picam2.stop()
 ```
 
 This code uses the same vision logic as the ball tracking robot itself but uses the ```pigpio``` library to reduce the servo jitter and turns the servos based on the ball's location. This way, the pan-tilt servo mount always moves to keep the ball centered in the frame of the camera.
+
+![Flowchart of code logic](Untitled_Diagram.drawio.png)
 
 Now that I knew that the pan-tilt servo mount was functional, I implemented this code with my final milestone code to make a robot with 2 modes; the first being regular ball tracking, and the second being stationary ball tracking that allows for up-down ball tracking in opposition to just following the ball on the ground with only the left-right axis. (Check main code)
 
