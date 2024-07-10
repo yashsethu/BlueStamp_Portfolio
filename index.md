@@ -13,7 +13,7 @@ For my first modification, I have added a pan-tilt servo mount that allows the r
 
 ![Image of pan-servo mount](mount.jpeg)
 
-*Figure 1: Image of my pan-tilt servo mount: (Link)[https://www.google.com/url?sa=i&url=https%3A%2F%2Fbc-robotics.com%2Fshop%2Fpantilt-bracket-kit%2F&psig=AOvVaw3prX99s1KmCX1rNt96NBC8&ust=1720727154920000&source=images&cd=vfe&opi=89978449&ved=0CAMQjB1qFwoTCOjM1bienYcDFQAAAAAdAAAAABAE]*
+*Figure 1: Image of my pan-tilt servo mount: https://www.google.com/url?sa=i&url=https%3A%2F%2Fbc-robotics.com%2Fshop%2Fpantilt-bracket-kit%2F&psig=AOvVaw3prX99s1KmCX1rNt96NBC8&ust=1720727154920000&source=images&cd=vfe&opi=89978449&ved=0CAMQjB1qFwoTCOjM1bienYcDFQAAAAAdAAAAABAE*
 
 ### Summary
 After adding a servo to move the camera left and right (pan) and a servo to move it up and down (tilt), I used the following code to test its functionality
