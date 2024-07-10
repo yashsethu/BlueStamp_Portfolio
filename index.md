@@ -91,7 +91,7 @@ My main challenge with my first modification was the servo jitter, as before usi
 
 I also tried a more advanced method of angle updating, using trigonometry and linear scaling. In this method, I use trigonometry to calculate the exact angle to set each servo to every few milliseconds. This way, instead of increasing angles until the target was met, the exact angle could be achieved immediately. In addition, using linear scaling helped make the servo move quicker the farther away it was from the ball. However, this method turned out to be imprecise and increased servo jitter, so I scrapped this method and reverted to my original simple code.
 
-Now, I'll move on to my second modification, Tenser Flow object detection
+Now, I'll move on to my second modification, Tenser Flow object detection.
 
 ***
 
