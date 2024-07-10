@@ -10,6 +10,7 @@ The Ball-tracking Robot uses the Raspberry Pi system along with the Open Compute
 
 # Modification 1
 For my first modification, I have added a pan-tilt servo mount that allows the robot to track the ball while stationary and while moving.
+
 ![Image of pan-servo mount](mount.jpeg)
 
 ### Summary
