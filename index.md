@@ -22,6 +22,7 @@ import time
 from ball import find_color_mask, find_largest_contour
 import os
 
+# Setup the camera
 redLower = (150, 140, 1)
 redUpper = (190, 255, 255)
 
@@ -32,6 +33,7 @@ picam2.configure(
 picam2.start()
 time.sleep(1)
 
+# Setup the pan-tilt servo
 pan = 16
 tilt = 26
 
@@ -49,59 +51,16 @@ pwm.set_mode(tilt, pigpio.OUTPUT)
 pwm.set_PWM_frequency(pan, 50)
 pwm.set_PWM_frequency(tilt, 50)
 
+# Turn the servos to their default position
 print("90 deg")
 pwm.set_servo_pulsewidth(pan, 1500)
 pwm.set_servo_pulsewidth(tilt, 1500)
 time.sleep(1)
 
-
-def calculate_pwm_values(
-    x_ball,
-    y_ball,
-    frame_width=320,
-    frame_height=240,
-    horizontal_fov=54,
-    vertical_fov=41,
-):
-    # Constants
-    PAN_SERVO_CENTER = 90
-    TILT_SERVO_CENTER = 90
-
-    PWM_MIN = 500
-    PWM_MAX = 2500
-    DEGREE_MIN = 0
-    DEGREE_MAX = 180
-
-    # Center of the frame
-    x_center = frame_width / 2
-    y_center = frame_height / 2
-
-    # Offsets from the center
-    delta_x = x_ball - x_center
-    delta_y = y_ball - y_center
-
-    # Calculate angular displacement
-    theta_pan = (delta_x / frame_width) * horizontal_fov
-    theta_tilt = (delta_y / frame_height) * vertical_fov
-
-    # Calculate servo angles
-    servo_angle_pan = PAN_SERVO_CENTER + theta_pan
-    servo_angle_tilt = TILT_SERVO_CENTER - theta_tilt  # subtract for tilt
-
-    # Map servo angles to PWM values
-    pwm_pan = PWM_MIN + (servo_angle_pan - DEGREE_MIN) * (PWM_MAX - PWM_MIN) / (
-        DEGREE_MAX - DEGREE_MIN
-    )
-    pwm_tilt = PWM_MIN + (servo_angle_tilt - DEGREE_MIN) * (PWM_MAX - PWM_MIN) / (
-        DEGREE_MAX - DEGREE_MIN
-    )
-
-    return pwm_pan, pwm_tilt
-
-
 found = False
 
 while True:
+    # Process the frame and track the ball
     frame = picam2.capture_array()
 
     mask = find_color_mask(frame)
@@ -114,6 +73,7 @@ while True:
     else:
         found = False
 
+    # Turn the pan servo left or right and the tilt servo up or down depending on where the ball is
     if found:
         if x < 150:
             h_direction = "left"
@@ -137,6 +97,7 @@ while True:
                 tilt_a -= 10
             pwm.set_servo_pulsewidth(tilt, tilt_a)
 
+    # If the ball was lost, move in the last direction you saw it
     elif v_direction != "none" and h_direction != "none":
         if h_direction == "left":
             if pan_a < 2500:
@@ -179,6 +140,8 @@ Now that I knew that the pan-tilt servo mount was functional, I implemented this
 
 ### Challenges
 My main challenge with my first modification was the servo jitter, as before using the ```pigpio``` library, servo movements were very shaky and not smooth due to serial noise. However, after using the recommended libraries, the servo jitter was fixed and my servos were much more smooth and precise.
+
+In addition, I was originally using my current simple code to incrementally change the servo angles depending on the side of the axes the ball was on, but I tried actively calculating the optimal servo angles to point at the ball with linear regression and a decent amount of trigonometry. Unfortunately, that method was not very precise and caused a lot of jitter and imprecision, so I ended up switching back to my simple model for the most reliability.
 
 ***
 
