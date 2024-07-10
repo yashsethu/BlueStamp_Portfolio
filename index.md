@@ -62,7 +62,7 @@ After adding my pan-tilt servo mount, with a servo to move the camera left and r
 
 This code uses the same vision logic as the ball tracking robot itself but uses the ```pigpio``` library to reduce the servo jitter and turns the servos based on the ball's location. This way, the pan-tilt servo mount always moves to keep the ball centered in the frame of the camera.
 
-![Flowchart of code logic](Flowchart.png)
+![Flowchart of code logic](Digram.png)
 
 Now that I knew that the pan-tilt servo mount was functional, I implemented this code with my final milestone code to make a robot with 2 modes; the first being regular ball tracking, and the second being stationary ball tracking that allows for up-down ball tracking in opposition to just following the ball on the ground with only the left-right axis. (Check main code)
 
