@@ -4,7 +4,10 @@ The Ball-tracking Robot uses the Raspberry Pi system along with the Open Compute
 |:--:|:--:|:--:|:--:|
 | Yash S. | Leland High School | Mechanical Engineering / Robotics | Incoming Sophmore
 
-<img src="Yash_S.jpg" alt="Picture" width="500"/>
+<div style="display: flex; justify-content: space-around;">
+  <img src="Yash_S.jpg" alt="Picture" width="500"/>
+  <img src="project.jpg" alt="Project" width="500"/>
+</div>
 
 *** 
 
