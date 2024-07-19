@@ -23,7 +23,7 @@ By attaching a camera to this mount, the camera can easily move with two degrees
 ### Summary
 After adding a servo to move the camera left and right (pan) and a servo to move it up and down (tilt), I used a test program to test its functionality.
 
-I set my PWM signal (Pulse-Width Modulation)[^12] for servo control with: ```pwm = pigpio.pi()```. The PiGPIO[^13] library constantly updates the servo angle and mitigates serial noise[^14] to create a smooth-moving, chatter-free servo. This way, the pan-tilt servo mount always moves to keep the ball centered in the camera's frame.
+I set my PWM signal (Pulse-Width Modulation) [^12] for servo control with: ```pwm = pigpio.pi()```. The PiGPIO [^13] library constantly updates the servo angle and mitigates serial noise [^14] to create a smooth-moving, chatter-free servo. This way, the pan-tilt servo mount always moves to keep the ball centered in the camera's frame.
 
 In this block, I aim to turn the servo toward the ball by incrementing the servo in the desired direction. 
 
@@ -98,7 +98,7 @@ Once the pan-tilt servo mount was functional, I implemented this code my servo c
 *Figure 2: Flowchart of servo logic*
 
 ### Challenges
-My main challenge with my first modification was the servo chatter[^15], as before using the PiGPIO library, servo movements were very shaky and not smooth due to serial noise. However, after using the recommended libraries, the chatter was fixed and my servos were much more smooth and precise as a result of constant control and updating servo PWM.
+My main challenge with my first modification was the servo chatter [^15], as before using the PiGPIO library, servo movements were very shaky and not smooth due to serial noise. However, after using the recommended libraries, the chatter was fixed and my servos were much more smooth and precise as a result of constant control and updating servo PWM.
 
 I also tried a more advanced method of angle updating, using trigonometry and linear scaling. In this method, I use trigonometry to calculate the exact angle to set each servo to every few milliseconds. This way, instead of increasing angles until the target was met, the exact angle could be achieved immediately. In addition, using linear scaling helped make the servo move quicker the farther away it was from the ball. However, this method turned out to be imprecise and increased servo jitter, so I scrapped this method and reverted to my original simple code.
 
