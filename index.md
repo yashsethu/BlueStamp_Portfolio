@@ -5,8 +5,8 @@ The Ball-tracking Robot uses the Raspberry Pi system along with the Open Compute
 | Yash S. | Leland High School | Mechanical Engineering / Robotics | Incoming Sophmore
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="Yash_S.jpg" alt="Picture" width="500"/>
-  <img src="20240719_090153.jpg" alt="Project" width="500"/>
+  <img src="Yash_S.jpg" alt="Picture" width="300"/>
+  <img src="20240719_090153.jpg" alt="Project" width="300"/>
 </div>
 
 *** 
@@ -148,6 +148,7 @@ elif found and not in_frame:
 By splitting up the tracking process into stages, I can efficiently find and actively navigate to the ball.
 
 In addition, I added 2 more ultrasonic sensors to increase the accuracy of obstacle detection:
+
 ```python
 # Setup ultrasonic sensor
 Trigger_C = 22
@@ -307,6 +308,10 @@ As shown above, if 1 and 4 were closed, the current would flow to the right thro
 To test the functionality of my robot, I used 2 test programs, one for the motors and one for the camera.
 
 Here is a basic motor testing program:
+
+<details>
+<summary>Motor Test/summary>
+
 ```python
 import RPi.GPIO as GPIO
 
@@ -360,9 +365,75 @@ while(True):
 		GPIO.cleanup()
 		break
 ```
+</details>
+
 This program uses WASD inputs to direct the directions of the motors, using a ```while True``` loop to make testing easier and using the 'end' key to break out of the infinite loop and cleanup the GPIO outputs
 
 Now, here is some basic camera testing code:
+
+<details>
+<summary>Motor Test</summary>
+
+```python
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BOARD)
+
+MOTOR1B=15 # LEFT motor
+MOTOR1E=16
+  
+MOTOR2B=11 # RIGHT motor
+MOTOR2E=13
+
+GPIO.setup(MOTOR1B, GPIO.OUT)
+GPIO.setup(MOTOR1E, GPIO.OUT)
+GPIO.setup(MOTOR2B, GPIO.OUT)
+GPIO.setup(MOTOR2E, GPIO.OUT)
+
+while(True):
+	userInput = input()
+	
+	if(userInput == 'w'):
+		GPIO.output(MOTOR1B,GPIO.LOW)
+		GPIO.output(MOTOR1E,GPIO.HIGH)
+		GPIO.output(MOTOR2B,GPIO.HIGH)
+		GPIO.output(MOTOR2E,GPIO.LOW)
+
+	if(userInput == 'a'):
+		GPIO.output(MOTOR1B,GPIO.HIGH)
+		GPIO.output(MOTOR1E,GPIO.LOW)
+		GPIO.output(MOTOR2B,GPIO.HIGH)
+		GPIO.output(MOTOR2E,GPIO.LOW)
+                
+	if(userInput == 's'):
+		GPIO.output(MOTOR1B,GPIO.HIGH)
+		GPIO.output(MOTOR1E,GPIO.LOW)
+		GPIO.output(MOTOR2B,GPIO.LOW)
+		GPIO.output(MOTOR2E,GPIO.HIGH)
+            
+	if(userInput == 'd'):
+		GPIO.output(MOTOR1B,GPIO.LOW)
+		GPIO.output(MOTOR1E,GPIO.HIGH)
+		GPIO.output(MOTOR2B,GPIO.LOW)
+		GPIO.output(MOTOR2E,GPIO.HIGH)
+        
+	if(userInput == 'x'):
+		GPIO.output(MOTOR1B,GPIO.LOW)
+		GPIO.output(MOTOR1E,GPIO.LOW)
+		GPIO.output(MOTOR2B,GPIO.LOW)
+		GPIO.output(MOTOR2E,GPIO.LOW)
+		
+	if(userInput == 'end'):
+		GPIO.cleanup()
+		break
+```
+</details>
+
+Here is some basic camera testing code:
+	
+<details>
+<summary>Camera Test</summary>
+
 ```python
 from picamera2 import Picamera2
 import numpy as np
@@ -389,6 +460,8 @@ while True:
 cv2.destroyAllWindows()
 picam2.stop()
 ```
+</details>
+
 This code has 2 main parts, with a library for each:
 
 1. The PiCamera2 Library helps us configure the camera with ```PiCamera2()``` and captures the current frame every few milliseconds with ```picam2.capture_array()```
@@ -431,7 +504,10 @@ At this point, I will move on to my main project, the ball-tracking robot, and b
 ![Schematic diagram](Ball-tracking.png)
 
 # Full Code
-Modification 1 Code:
+
+<details>
+<summary>Modification</summary>
+
 ```python
 # Import motor and camera setup from our files
 from motor import (
@@ -727,9 +803,11 @@ picam2.stop()
 GPIO.cleanup()
 
 ```
+</details>
 
+<details>
+<summary>Final Milestone</summary>
 
-Final Milestone Code: 
 ```python
 # Import motor and camera setup from our files
 from motor import forward, reverse, leftturn, rightturn, stop, sharp_left, sharp_right, back_left, back_right
@@ -918,6 +996,7 @@ cv2.destroyAllWindows()
 picam2.stop()
 GPIO.cleanup()
 ```
+</details>
 
 # Bill of Materials
 
