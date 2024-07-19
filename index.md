@@ -6,7 +6,7 @@ The Ball-tracking Robot uses the Raspberry Pi system along with the Open Compute
 
 <div style="display: flex; justify-content: space-around;">
   <img src="Yash_S.jpg" alt="Picture" width="500"/>
-  <img src="project.jpg" alt="Project" width="500"/>
+  <img src="20240719_090153.jpg" alt="Project" width="500"/>
 </div>
 
 *** 
