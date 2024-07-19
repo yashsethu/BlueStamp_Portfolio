@@ -36,6 +36,9 @@ pwm.set_servo_pulsewidth(pan, pan_a) # Send the signal
 
 The above code is repeated for multiple servo directions. See the code below:
 
+<details>
+<summary>Full Servo Control Block</summary>
+
 ```python
     if found:
         if x < 150:
@@ -80,6 +83,7 @@ The above code is repeated for multiple servo directions. See the code below:
                 tilt_a -= 10
             pwm.set_servo_pulsewidth(tilt, tilt_a)
 ```
+</details>
 
 This code uses the same vision-logic as the ball-tracking robot itself but uses the PiGPIO library to reduce the servo chatter.
 
@@ -149,6 +153,9 @@ By splitting up the tracking process into stages, I can efficiently find and act
 
 In addition, I added 2 more ultrasonic sensors to increase the accuracy of obstacle detection:
 
+<details>
+<summary>Ultrasonic Sensor Setup</summary>
+
 ```python
 # Setup ultrasonic sensor
 Trigger_C = 22
@@ -171,6 +178,7 @@ GPIO.output(Trigger_C, False)
 GPIO.output(Trigger_L, False)
 GPIO.output(Trigger_R, False)
 ```
+</details>
 
 With these sensors, I can make sure that my obstacle detection is as accurate and quick as possible.
 
@@ -210,6 +218,10 @@ while True:
 This program sets up the ultrasonic sensors with the respective board pins and prints the distance received from the sensor continuously.
 
 Here is my ball-tracking test code:
+
+<details>
+<summary>Ball-Tracking Test Code</summary>
+
 ```python
 from picamera2 import Picamera2
 import numpy as np
@@ -279,6 +291,8 @@ while True:
 cv2.destroyAllWindows()
 picam2.stop()
 ```
+</details>
+
 As explained, the code processes the current frame from the live camera feed and draws a circle around the detected ball.
 
 Using this code, we can test to see that our ultrasonic sensor records accurate distances and that our ball-tracking functionality works.
