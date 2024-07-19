@@ -21,11 +21,19 @@ For my first modification, I have added a pan-tilt servo mount that allows the r
 By attaching a camera to this mount, the camera can easily move with two degrees of freedom.
 
 ### Summary
-After adding a servo to move the camera left and right (pan) and a servo to move it up and down (tilt), I used the following code to test its functionality
+After adding a servo to move the camera left and right (pan) and a servo to move it up and down (tilt), I used a test program to test its functionality.
 
 I set my PWM signal (Pulse-Width Modulation)[^12] for servo control with: ```pwm = pigpio.pi()```. The PiGPIO[^13] library constantly updates the servo angle and mitigates serial noise[^14] to create a smooth-moving, chatter-free servo. This way, the pan-tilt servo mount always moves to keep the ball centered in the camera's frame.
 
-In this block, I aim to turn the servo toward the ball by incrementing the servo in the desired direction. Steps: 1) Log the direction the ball was last seen, 2) Check whether the servo is at a maximum position, and 3) Increment the PWM signal by 10  to turn the servo in the logged direction. See the code below:
+In this block, I aim to turn the servo toward the ball by incrementing the servo in the desired direction. 
+
+Steps: 
+
+1) Log the direction the ball was last seen,
+   
+3) Check whether the servo is at a maximum position, and
+
+4) Increment the PWM signal by 10  to turn the servo in the logged direction. See the code below:
 
 ```python
 h_direction = "left" # Step 1
