@@ -214,6 +214,7 @@ Here is my ball-tracking test code:
 
 <br/>
 <a href="ball_track_test.py">Ball Tracking Code</a>
+<br/>
 
 As explained, the code processes the current frame from the live camera feed and draws a circle around the detected ball.
 
@@ -245,6 +246,7 @@ To test the functionality of my robot, I used 2 test programs, one for the motor
 
 <br/>
 <a href="motor_test.py">Motor Testing Code</a>
+<br/>
 
 This program uses WASD inputs to direct the directions of the motors, using a ```while True``` loop to make testing easier and using the 'end' key to break out of the infinite loop and cleanup the GPIO outputs
 
@@ -252,6 +254,7 @@ Now, here is some basic camera testing code:
 
 <br/>
 <a href="camera_test.py">Camera Test Code</a>
+<br/>
 
 This code has 2 main parts, with a library for each:
 
@@ -300,6 +303,7 @@ At this point, I will move on to my main project, the ball-tracking robot, and b
 <a href="final.py">Final Milestone Code</a>
 <br/>
 <a href="modification.py">Modification 1 Code</a>
+<br/>
 
 # Bill of Materials
 
