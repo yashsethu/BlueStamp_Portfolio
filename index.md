@@ -20,9 +20,9 @@ By attaching a camera to this mount, the camera can easily move with two degrees
 ### Summary
 After adding a servo to move the camera left and right (pan) and a servo to move it up and down (tilt), I used the following code to test its functionality
 
-For servo control, I set my PWM with: ```pwm = pigpio.pi()```. The pigpio library constantly updates the servo angle and mitigates serial noise to create a smooth-moving, jitter-free servo. This way, the pan-tilt servo mount always moves to keep the ball centered in the frame of the camera.
+I set my PWM signal (Pulse-Width Modulation)[^12] for servo control with: ```pwm = pigpio.pi()```. The PiGPIO[^13] library constantly updates the servo angle and mitigates serial noise[^14] to create a smooth-moving, chatter-free servo. This way, the pan-tilt servo mount always moves to keep the ball centered in the camera's frame.
 
-In this block, I aim to turn the servo in the direction of the ball by incrementing the servo in the desired direction. Steps: 1) Log the direction the ball was last seen, 2) Check whether the servo is at a maximum position, and 3) Increment the PWM signal by 10  to turn the servo in the logged direction. See code below:
+In this block, I aim to turn the servo toward the ball by incrementing the servo in the desired direction. Steps: 1) Log the direction the ball was last seen, 2) Check whether the servo is at a maximum position, and 3) Increment the PWM signal by 10  to turn the servo in the logged direction. See the code below:
 
 ```python
 h_direction = "left" # Step 1
@@ -31,7 +31,7 @@ if pan_a < 2500: #Step 2: If servo is less than maximum
 pwm.set_servo_pulsewidth(pan, pan_a) # Send the signal
 ```
 
-The above code is repeated for multiple directions. See code below:
+The above code is repeated for multiple servo directions. See the code below:
 
 ```python
     if found:
@@ -78,20 +78,20 @@ The above code is repeated for multiple directions. See code below:
             pwm.set_servo_pulsewidth(tilt, tilt_a)
 ```
 
-This code uses the same vision-logic as the ball-tracking robot itself but uses the pigpio library to reduce the servo jitter.
+This code uses the same vision-logic as the ball-tracking robot itself but uses the PiGPIO library to reduce the servo chatter.
 
-Once the pan-tilt servo mount was functional, I implemented this code my servo code with my final milestone code to make a robot with two modes:  1) regular ball tracking, and 2) stationary ball tracking. Usually, the ball-tracking robot can only track a ball close to the ground, and only on the horizontal axis, but the stationary tracking mode allows the robot to track the ball on both axes with high precision.
+Once the pan-tilt servo mount was functional, I implemented this code my servo code with my final milestone code to make a robot with two modes:  1) regular ball tracking, and 2) stationary ball tracking. Usually, the ball-tracking robot can only track a ball close to the ground and only on the horizontal axis. However, the stationary tracking mode allows the robot to track the ball on both axes, with high precision.
 
 ![Flowchart of code logic](Diagram.png)
 
 *Figure 2: Flowchart of servo logic*
 
 ### Challenges
-My main challenge with my first modification was the servo jitter, as before using the pigpio library, servo movements were very shaky and not smooth due to serial noise. However, after using the recommended libraries, the servo jitter was fixed and my servos were much more smooth and precise as a result of constant control and updating servo PWM.
+My main challenge with my first modification was the servo chatter[^15], as before using the PiGPIO library, servo movements were very shaky and not smooth due to serial noise. However, after using the recommended libraries, the chatter was fixed and my servos were much more smooth and precise as a result of constant control and updating servo PWM.
 
 I also tried a more advanced method of angle updating, using trigonometry and linear scaling. In this method, I use trigonometry to calculate the exact angle to set each servo to every few milliseconds. This way, instead of increasing angles until the target was met, the exact angle could be achieved immediately. In addition, using linear scaling helped make the servo move quicker the farther away it was from the ball. However, this method turned out to be imprecise and increased servo jitter, so I scrapped this method and reverted to my original simple code.
 
-Now, I'll move on to my second modification, Tenser Flow object detection.
+Now, I'll move on to my second modification, Tensor Flow object detection.
 
 ***
 
@@ -940,3 +940,7 @@ GPIO.cleanup()
 [^8]: [Series vs. Parallel Circuits](https://learn.sparkfun.com/tutorials/series-and-parallel-circuits/all) 
 [^10]: [PiCamera2 Library](https://pypi.org/project/picamera2/0.2.2/)
 [^11]: [OpenCV Preview](https://docs.opencv.org/3.4/dd/d43/tutorial_py_video_display.html)
+[^12]: [Pulse-Width Modulation](https://learn.sparkfun.com/tutorials/pulse-width-modulation/all)
+[^13]: [Pi GPIO Library](https://abyz.me.uk/rpi/pigpio/)
+[^14]: [Serial Noise](https://www.fluke.com/en-us/learn/blog/power-quality/electrical-noise-and-transients)
+[^15]: [Servo Chatter](https://www.rcgroups.com/forums/showthread.php?1612180-What-causes-Servo-chatter)
