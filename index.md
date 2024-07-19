@@ -210,7 +210,7 @@ while True:
 
 This program sets up the ultrasonic sensors with the respective board pins and prints the distance received from the sensor continuously.
 
-Here is my ball-tracking test code: <a href="ball_track_test.py">Ball Tracking Code</a>
+Here is my ball-tracking test code: <a href="https://github.com/yashsethu/BlueStamp_Portfolio/blob/gh-pages/ball_track_test.py">Ball Tracking Code</a>
 
 As explained, the code processes the current frame from the live camera feed and draws a circle around the detected ball.
 
@@ -240,11 +240,11 @@ As shown above, if 1 and 4 were closed, the current would flow to the right thro
 ### Testing
 To test the functionality of my robot, I used 2 test programs, one for the motors and one for the camera.
 
-Motor Test: <a href="motor_test.py">Motor Testing Code</a>
+Motor Test: <a href="https://github.com/yashsethu/BlueStamp_Portfolio/blob/gh-pages/motor_test.py">Motor Testing Code</a>
 
 This program uses WASD inputs to direct the directions of the motors, using a ```while True``` loop to make testing easier and using the 'end' key to break out of the infinite loop and cleanup the GPIO outputs
 
-Now, here is some basic camera testing code: <a href="camera_test.py">Camera Test Code</a>
+Now, here is some basic camera testing code: <a href="https://github.com/yashsethu/BlueStamp_Portfolio/blob/gh-pages/camera_test.py">Camera Test Code</a>
 
 This code has 2 main parts, with a library for each:
 
@@ -290,9 +290,9 @@ At this point, I will move on to my main project, the ball-tracking robot, and b
 # Full Code
 
 <br/>
-<a href="final.py">Final Milestone Code</a>
+<a href="https://github.com/yashsethu/BlueStamp_Portfolio/blob/gh-pages/final.py">Final Milestone Code</a>
 <br/>
-<a href="modification.py">Modification 1 Code</a>
+<a href="https://github.com/yashsethu/BlueStamp_Portfolio/blob/gh-pages/modification.py">Modification 1 Code</a>
 <br/>
 
 # Bill of Materials
