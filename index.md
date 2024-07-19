@@ -225,7 +225,7 @@ As explained, the code processes the current frame from the live camera feed and
 Using this code, we can test to see that our ultrasonic sensor records accurate distances and that our ball-tracking functionality works.
 
 ### Challenges
-My main challenge with this milestone was the ultrasonic sensor, while making the circuit I accidently fried a sensor due to an incorrect connection, but after replacing the sensor and verifying my layout, the sensor worked as expected.
+My main challenge with this milestone was the ultrasonic sensor; while making the circuit I accidently fried a sensor due to an incorrect connection, but after replacing the sensor and verifying my layout, the sensor worked as expected.
 
 Now, I'll move on to building my main code, compiling together all of my work so far.
 
@@ -260,7 +260,7 @@ This code has 2 main parts, with a library for each:
 
 3. The OpenCV library helps us take the current frame captured by PiCamera2 and display it in a preview window, updating it on new frame from ```picam2```.
 
-We can efficiently test and debug our camera and motors with these two programs, allowing us to continue building the robot's full code.
+With these programs, I can efficiently test and debug my camera and motors, allowing me to continue building the robot's full code.
 
 ### Challenges
 My main challenge with this process was that almost every part of the kit was broken, including the battery pack which didn't supply any voltage, the motor driver which gave no output voltage, and the switch that melted and wouldn't turn on. I had to replace the battery pack and motor driver and use a Dremel Saw to make a larger hole for a new switch. In addition, I was originally connecting power to +5V, but this was incorrect, I had to connect it to VCC, and once I fixed this error, the motors worked normally and I could control the robot as I wanted. VCC accepts up to +12V on this driver and should always be used. The +5V port only exists for additional power supply in case of excessive voltage load on the driver itself.
