@@ -225,7 +225,7 @@ As explained, the code processes the current frame from the live camera feed and
 Using this code, we can test to see that our ultrasonic sensor records accurate distances and that our ball-tracking functionality works.
 
 ### Challenges
-My main challenge with this milestone was the ultrasonic sensor, while making the circuit I accidently fried a sensor due to an incorrect connection, but after replacing the sensor and verifying my layout, the sensor worked as expected
+My main challenge with this milestone was the ultrasonic sensor, while making the circuit I accidently fried a sensor due to an incorrect connection, but after replacing the sensor and verifying my layout, the sensor worked as expected.
 
 Now, I'll move on to building my main code, compiling together all of my work so far.
 
@@ -250,15 +250,15 @@ To test the functionality of my robot, I used 2 test programs, one for the motor
 
 Motor Test: <a href="https://github.com/yashsethu/BlueStamp_Portfolio/blob/gh-pages/motor_test.py">Motor Testing Code</a>
 
-This program uses WASD inputs to direct the directions of the motors, using a ```while True``` loop to make testing easier and using the 'end' key to break out of the infinite loop and cleanup the GPIO outputs
+This program uses WASD inputs to direct the directions of the motors, using a ```while True``` loop to make testing easier and using the 'end' key to break out of the infinite loop and cleanup the GPIO outputs.
 
 Now, here is some basic camera testing code: <a href="https://github.com/yashsethu/BlueStamp_Portfolio/blob/gh-pages/camera_test.py">Camera Test Code</a>
 
 This code has 2 main parts, with a library for each:
 
-1. The PiCamera2 Library helps us configure the camera with ```PiCamera2()``` and captures the current frame every few milliseconds with ```picam2.capture_array()```
+1. The PiCamera2 Library helps us configure the camera with ```PiCamera2()``` and captures the current frame every few milliseconds with ```picam2.capture_array()```.
 
-3. The OpenCV library helps us take the current frame captured by PiCamera2 and display it in a preview window, updating it on new frame from ```picam2```
+3. The OpenCV library helps us take the current frame captured by PiCamera2 and display it in a preview window, updating it on new frame from ```picam2```.
 
 We can efficiently test and debug our camera and motors with these two programs, allowing us to continue building the robot's full code.
 
