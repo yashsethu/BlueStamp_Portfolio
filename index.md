@@ -328,6 +328,7 @@ At this point, I will move on to my main project, the ball-tracking robot, and b
 [^6]: [H-bridge circuits](https://digilent.com/blog/what-is-an-h-bridge/#:~:text=An%20H%2Dbridge%20is%20built,directions%20by%20closing%20two%20switches.) 
 [^7]: [Direct current vs. Alternating current](https://learn.sparkfun.com/tutorials/alternating-current-ac-vs-direct-current-dc/all)
 [^8]: [Series vs. Parallel Circuits](https://learn.sparkfun.com/tutorials/series-and-parallel-circuits/all) 
+[^9]: [Voltage Divider](https://studymind.co.uk/notes/potential-dividers/)
 [^10]: [PiCamera2 Library](https://pypi.org/project/picamera2/0.2.2/)
 [^11]: [OpenCV Preview](https://docs.opencv.org/3.4/dd/d43/tutorial_py_video_display.html)
 [^12]: [Pulse-Width Modulation](https://learn.sparkfun.com/tutorials/pulse-width-modulation/all)
