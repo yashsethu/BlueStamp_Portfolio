@@ -210,11 +210,7 @@ while True:
 
 This program sets up the ultrasonic sensors with the respective board pins and prints the distance received from the sensor continuously.
 
-Here is my ball-tracking test code:
-
-<br/>
-<a href="ball_track_test.py">Ball Tracking Code</a>
-<br/>
+Here is my ball-tracking test code: <a href="ball_track_test.py">Ball Tracking Code</a>
 
 As explained, the code processes the current frame from the live camera feed and draws a circle around the detected ball.
 
@@ -244,17 +240,11 @@ As shown above, if 1 and 4 were closed, the current would flow to the right thro
 ### Testing
 To test the functionality of my robot, I used 2 test programs, one for the motors and one for the camera.
 
-<br/>
-<a href="motor_test.py">Motor Testing Code</a>
-<br/>
+Motor Test: <a href="motor_test.py">Motor Testing Code</a>
 
 This program uses WASD inputs to direct the directions of the motors, using a ```while True``` loop to make testing easier and using the 'end' key to break out of the infinite loop and cleanup the GPIO outputs
 
-Now, here is some basic camera testing code:
-
-<br/>
-<a href="camera_test.py">Camera Test Code</a>
-<br/>
+Now, here is some basic camera testing code: <a href="camera_test.py">Camera Test Code</a>
 
 This code has 2 main parts, with a library for each:
 
