@@ -36,9 +36,6 @@ pwm.set_servo_pulsewidth(pan, pan_a) # Send the signal
 
 The above code is repeated for multiple servo directions. See the code below:
 
-<details>
-<summary>Full Servo Control Block</summary>
-
 ```python
     if found:
         if x < 150:
@@ -83,7 +80,6 @@ The above code is repeated for multiple servo directions. See the code below:
                 tilt_a -= 10
             pwm.set_servo_pulsewidth(tilt, tilt_a)
 ```
-</details>
 
 This code uses the same vision-logic as the ball-tracking robot itself but uses the PiGPIO library to reduce the servo chatter.
 
@@ -153,9 +149,6 @@ By splitting up the tracking process into stages, I can efficiently find and act
 
 In addition, I added 2 more ultrasonic sensors to increase the accuracy of obstacle detection:
 
-<details>
-<summary>Ultrasonic Sensor Setup</summary>
-
 ```python
 # Setup ultrasonic sensor
 Trigger_C = 22
@@ -178,7 +171,6 @@ GPIO.output(Trigger_C, False)
 GPIO.output(Trigger_L, False)
 GPIO.output(Trigger_R, False)
 ```
-</details>
 
 With these sensors, I can make sure that my obstacle detection is as accurate and quick as possible.
 
